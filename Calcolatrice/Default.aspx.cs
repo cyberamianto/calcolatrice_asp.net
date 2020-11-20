@@ -108,57 +108,57 @@ namespace Calcolatrice
 
         protected void btn0_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '0';
+            txtEl.Text += '0'; //scrive numero nella textbox
         }
 
         protected void btn1_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '1';
+            txtEl.Text += '1'; //scrive numero nella textbox
         }
 
         protected void btn2_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '2';
+            txtEl.Text += '2'; //scrive numero nella textbox
         }
 
         protected void btn3_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '3';
+            txtEl.Text += '3'; //scrive numero nella textbox
         }
 
         protected void btn4_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '4';
+            txtEl.Text += '4'; //scrive numero nella textbox
         }
 
         protected void btn5_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '5';
+            txtEl.Text += '5'; //scrive numero nella textbox
         }
 
         protected void btn6_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '6';
+            txtEl.Text += '6'; //scrive numero nella textbox
         }
 
         protected void btn7_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '7';
+            txtEl.Text += '7'; //scrive numero nella textbox
         }
 
         protected void btn8_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '8';
+            txtEl.Text += '8'; //scrive numero nella textbox
         }
 
         protected void btn9_Click(object sender, EventArgs e)
         {
-            txtEl.Text += '9';
+            txtEl.Text += '9'; //scrive numero nella textbox
         }
 
         protected void btnVirgola_Click(object sender, EventArgs e)
         {
-            txtEl.Text += ',';
+            txtEl.Text += ','; //scrive virgola nella textbox
         }
 
         protected void btnPiu_Click(object sender, EventArgs e)
