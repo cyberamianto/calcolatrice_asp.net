@@ -24,15 +24,6 @@ namespace Calcolatrice
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Controllo lblRisultato.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRisultato;
-
-        /// <summary>
         /// Controllo txtEl.
         /// </summary>
         /// <remarks>
@@ -40,6 +31,15 @@ namespace Calcolatrice
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEl;
+
+        /// <summary>
+        /// Controllo lblRisultato.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRisultato;
 
         /// <summary>
         /// Controllo btnSalvaInMemoria.

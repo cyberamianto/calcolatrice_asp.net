@@ -9,6 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace Calcolatrice
 {
+    //Perugini Giammarco
+
+    //PRIMA DI ANALIZZARE IL CODICE E' PRESENTE UN README ALL'INTERNO DELLA STESSA CARTELLA DELLA SOLUZIONE
     public partial class Default : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -29,7 +32,7 @@ namespace Calcolatrice
                 Session["op"] = op;
                 Session["opBack"] = opBack;
                 Session["risultato"] = risultato;
-                Session["mem"] = null;
+                Session["mem"] = double.NaN;
                 Session["c"] = c;
             }
         }
@@ -63,22 +66,22 @@ namespace Calcolatrice
             else if ((int)Session["c"] > 1)
             {
                 Session["el2"] = double.Parse(txtEl.Text);
-                switch ((string)Session["op"])
+                switch ((string)Session["op"]) //analizzo il contenuto dell'operatore
                 {
                     case "+":
-                        Session["risultato"] = (double)Session["el1"] + (double)Session["el2"];
+                        Session["risultato"] = (double)Session["el1"] + (double)Session["el2"]; //addizione
                         break;
                     case "-":
-                        Session["risultato"] = (double)Session["el1"] - (double)Session["el2"];
+                        Session["risultato"] = (double)Session["el1"] - (double)Session["el2"]; //sottrazione
                         break;
                     case "*":
-                        Session["risultato"] = (double)Session["el1"] * (double)Session["el2"];
+                        Session["risultato"] = (double)Session["el1"] * (double)Session["el2"]; //moltiplicazione
                         break;
                     case "/":
-                        if ((double)Session["el2"] == 0)
+                        if ((double)Session["el2"] == 0) //caso divisione per 0
                             div0 = true;
                         else
-                            Session["risultato"] = (double)Session["el1"] / (double)Session["el2"];
+                            Session["risultato"] = (double)Session["el1"] / (double)Session["el2"]; //divisione
                         break;
                 }
                 el1 = (double)Session["risultato"];
@@ -86,7 +89,7 @@ namespace Calcolatrice
                 Session["el1"] = el1;
                 Session["el2"] = el2;
                 if (div0)
-                    txtEl.Text = "ERRORE DIVISIONE PER 0";
+                    txtEl.Text = "ERRORE DIVISIONE PER 0"; //comunico errore
                 else
                 {
                     lblRisultato.Text = Session["risultato"].ToString();
@@ -172,6 +175,15 @@ namespace Calcolatrice
 
                 CalcoliPulsanti("+", false);
             }
+            else if (txtEl.Text == "" && !double.IsNaN((double)Session["el1"]))
+            {
+                btnMeno.BackColor = default; //gestione interfaccia
+                btnPer.BackColor = default; //gestione interfaccia
+                btnDiviso.BackColor = default; //gestione interfaccia
+                btnPiu.BackColor = Color.Red; //gestione interfaccia
+
+                Session["op"] = "+";
+            }
         }
 
         protected void btnMeno_Click(object sender, EventArgs e)
@@ -184,6 +196,15 @@ namespace Calcolatrice
                 btnMeno.BackColor = Color.Red; //gestione interfaccia
 
                 CalcoliPulsanti("-", false);
+            }
+            else if (txtEl.Text == "" && !double.IsNaN((double)Session["el1"]))
+            {
+                btnPiu.BackColor = default; //gestione interfaccia
+                btnPer.BackColor = default; //gestione interfaccia
+                btnDiviso.BackColor = default; //gestione interfaccia
+                btnMeno.BackColor = Color.Red; //gestione interfaccia
+
+                Session["op"] = "-";
             }
         }
 
@@ -198,6 +219,15 @@ namespace Calcolatrice
 
                 CalcoliPulsanti("*", false);
             }
+            else if (txtEl.Text == "" && !double.IsNaN((double)Session["el1"]))
+            {
+                btnMeno.BackColor = default; //gestione interfaccia
+                btnPiu.BackColor = default; //gestione interfaccia
+                btnDiviso.BackColor = default; //gestione interfaccia
+                btnPer.BackColor = Color.Red; //gestione interfaccia
+
+                Session["op"] = "*";
+            }
         }
 
         protected void btnDiviso_Click(object sender, EventArgs e)
@@ -210,6 +240,15 @@ namespace Calcolatrice
                 btnDiviso.BackColor = Color.Red; //gestione interfaccia
 
                 CalcoliPulsanti("/", false);
+            }
+            else if (txtEl.Text == "" && !double.IsNaN((double)Session["el1"]))
+            {
+                btnMeno.BackColor = default; //gestione interfaccia
+                btnPer.BackColor = default; //gestione interfaccia
+                btnPiu.BackColor = default; //gestione interfaccia
+                btnDiviso.BackColor = Color.Red; //gestione interfaccia
+
+                Session["op"] = "/";
             }
         }
 
@@ -230,43 +269,43 @@ namespace Calcolatrice
                     el2Back = el2;
                     Session["el2"] = el2;
                     Session["el2Back"] = el2Back;
-                    switch ((string)Session["op"])
+                    switch ((string)Session["op"]) //analizzo l'operatore
                     {
                         case "+":
-                            Session["risultato"] = (double)Session["el1"] + el2;
+                            Session["risultato"] = (double)Session["el1"] + el2; //addizione
                             break;
                         case "-":
-                            Session["risultato"] = (double)Session["el1"] - el2;
+                            Session["risultato"] = (double)Session["el1"] - el2; //sottrazione
                             break;
                         case "*":
-                            Session["risultato"] = (double)Session["el1"] * el2;
+                            Session["risultato"] = (double)Session["el1"] * el2; //moltiplicazione
                             break;
                         case "/":
-                            if (el2 == 0)
+                            if (el2 == 0) //caso divisione per 0
                                 div0 = true;
                             else
-                                Session["risultato"] = (double)Session["el1"] / el2;
+                                Session["risultato"] = (double)Session["el1"] / el2; //divisione
                             break;
                     }
                     if (div0)
                     {
-                        el1 = double.NaN;
-                        el2 = double.NaN;
-                        risultato = double.NaN;
+                        el1 = double.NaN; //reimposto le varibili
+                        el2 = double.NaN; //reimposto le varibili
+                        risultato = double.NaN; //reimposto le varibili
                         Session["el1"] = el1;
                         Session["el2"] = el2;
                         Session["risultato"] = risultato;
-                        lblRisultato.Text = "ERRORE DIVISIONE PER 0";
+                        lblRisultato.Text = "ERRORE DIVISIONE PER 0"; //comunico errore
                         txtEl.Text = "";
                     }
                     else
                     {
                         el1 = (double)Session["risultato"];
-                        el2 = double.NaN;
+                        el2 = double.NaN; //reimposto le varibili
                         Session["el1"] = el1;
-                        Session["el2"] = el2;
+                        Session["el2"] = el2; //reimposto le varibili
                         lblRisultato.Text = Session["risultato"].ToString();
-                        txtEl.Text = Session["risultato"].ToString();
+                        txtEl.Text = Session["risultato"].ToString(); //risultato nella textbox
                     }
                     div0 = false;
                     Session["opBack"] = Session["op"];
@@ -277,58 +316,58 @@ namespace Calcolatrice
                 {
                     c = 0;
                     Session["c"] = c;
-                    switch (Session["opBack"].ToString())
+                    switch (Session["opBack"].ToString()) //analizzo l'operatore
                     {
                         case "+":
-                            Session["risultato"] = double.Parse(txtEl.Text) + (double)Session["el2Back"];
+                            Session["risultato"] = double.Parse(txtEl.Text) + (double)Session["el2Back"]; //addizione
                             break;
                         case "-":
-                            Session["risultato"] = double.Parse(txtEl.Text) - (double)Session["el2Back"];
+                            Session["risultato"] = double.Parse(txtEl.Text) - (double)Session["el2Back"]; //sottrazione
                             break;
                         case "*":
-                            Session["risultato"] = double.Parse(txtEl.Text) * (double)Session["el2Back"];
+                            Session["risultato"] = double.Parse(txtEl.Text) * (double)Session["el2Back"]; //moltiplicazione
                             break;
                         case "/":
-                            Session["risultato"] = double.Parse(txtEl.Text) / (double)Session["el2Back"];
+                            Session["risultato"] = double.Parse(txtEl.Text) / (double)Session["el2Back"]; //divisione
                             break;
                     }
                     el1 = (double)Session["risultato"];
-                    el2 = double.NaN;
+                    el2 = double.NaN; //reimposto le varibili
                     Session["el1"] = el1;
-                    Session["el2"] = el2;
+                    Session["el2"] = el2; //reimposto le varibili
                     lblRisultato.Text = Session["risultato"].ToString();
-                    txtEl.Text = Session["risultato"].ToString();
+                    txtEl.Text = Session["risultato"].ToString(); //risultato nella textbox
                 }
             }
             else if (!double.IsNaN((double)Session["el1"]))
             {
-                switch ((string)Session["op"])
+                switch ((string)Session["op"]) //analizzo l'operatore
                 {
                     case "+":
-                        Session["risultato"] = (double)Session["el1"] + (double)Session["el1"];
+                        Session["risultato"] = (double)Session["el1"] + (double)Session["el1"]; //addizione
                         break;
                     case "-":
-                        Session["risultato"] = (double)Session["el1"] - (double)Session["el1"];
+                        Session["risultato"] = (double)Session["el1"] - (double)Session["el1"]; //sottrazione
                         break;
                     case "*":
-                        Session["risultato"] = (double)Session["el1"] * (double)Session["el1"];
+                        Session["risultato"] = (double)Session["el1"] * (double)Session["el1"]; //moltiplicazione
                         break;
                     case "/":
-                        Session["risultato"] = (double)Session["el1"] / (double)Session["el1"];
+                        Session["risultato"] = (double)Session["el1"] / (double)Session["el1"]; //divisione
                         break;
                 }
                 el1 = (double)Session["risultato"];
-                el2 = double.NaN;
+                el2 = double.NaN; //reimposto le varibili
                 Session["el1"] = el1;
-                Session["el2"] = el2;
+                Session["el2"] = el2; //reimposto le varibili
                 lblRisultato.Text = Session["risultato"].ToString();
-                txtEl.Text = Session["risultato"].ToString();
+                txtEl.Text = Session["risultato"].ToString(); //risultato nella textbox
             }
         }
 
         protected void btnCancella_Click(object sender, EventArgs e)
         {
-            txtEl.Text = "";
+            txtEl.Text = ""; //svuoto la textbox
         }
 
         protected void btnCancellaTutto_Click(object sender, EventArgs e)
@@ -340,21 +379,21 @@ namespace Calcolatrice
             txtEl.Text = "";
             lblRisultato.Text = "";
 
-            el1 = double.NaN;
-            el2 = double.NaN;
-            op = null;
-            Session["el1"] = el1;
-            Session["el2"] = el2;
-            Session["el2Back"] = el2;
-            Session["op"] = op;
-            Session["opBack"] = op;
+            el1 = double.NaN; //reimposto le varibili
+            el2 = double.NaN; //reimposto le varibili
+            op = null; //reimposto le varibili
+            Session["el1"] = el1; //reimposto le varibili
+            Session["el2"] = el2; //reimposto le varibili
+            Session["el2Back"] = el2; //reimposto le varibili
+            Session["op"] = op; //reimposto le varibili
+            Session["opBack"] = op; //reimposto le varibili
         }
 
         protected void btnCambioSegno_Click(object sender, EventArgs e)
         {
             string el = txtEl.Text;
             if (!txtEl.Text.Contains("-"))
-                txtEl.Text = "-" + el;
+                txtEl.Text = "-" + el; //cambio segno
             else
                 txtEl.Text = txtEl.Text.Replace("-", "");
         }
@@ -363,19 +402,19 @@ namespace Calcolatrice
         {
             if (txtEl.Text != "0")
             {
-                txtEl.Text = (1 / double.Parse(txtEl.Text)).ToString();
-                lblRisultato.Text = txtEl.Text;
+                txtEl.Text = (1 / double.Parse(txtEl.Text)).ToString(); //frazione
+                lblRisultato.Text = txtEl.Text; //risultato nella textbox
             }
             else
             {
-                el1 = double.NaN;
-                el2 = double.NaN;
-                risultato = double.NaN;
-                Session["el1"] = el1;
-                Session["el2"] = el2;
-                Session["risultato"] = risultato;
-                lblRisultato.Text = "ERRORE DIVISIONE PER 0";
-                txtEl.Text = "";
+                el1 = double.NaN; //reimposto le varibili
+                el2 = double.NaN; //reimposto le varibili
+                risultato = double.NaN; //reimposto le varibili
+                Session["el1"] = el1; //reimposto le varibili
+                Session["el2"] = el2; //reimposto le varibili
+                Session["risultato"] = risultato; //reimposto le varibili
+                lblRisultato.Text = "ERRORE DIVISIONE PER 0"; //comunico l'errore
+                txtEl.Text = ""; //svuoto la textbox
             }
         }
 
@@ -385,19 +424,19 @@ namespace Calcolatrice
             {
                 if (double.Parse(txtEl.Text) > 0)
                 {
-                    txtEl.Text = Math.Sqrt(double.Parse(txtEl.Text)).ToString();
-                    lblRisultato.Text = txtEl.Text;
+                    txtEl.Text = Math.Sqrt(double.Parse(txtEl.Text)).ToString(); //radice
+                    lblRisultato.Text = txtEl.Text; //risultato nella textbox
                 }
                 else
                 {
-                    el1 = double.NaN;
-                    el2 = double.NaN;
-                    risultato = double.NaN;
-                    Session["el1"] = el1;
-                    Session["el2"] = el2;
-                    Session["risultato"] = risultato;
-                    lblRisultato.Text = "ERRORE ARGOMENTO RADICE NEGATIVO";
-                    txtEl.Text = "";
+                    el1 = double.NaN; //reimposto le varibili
+                    el2 = double.NaN; //reimposto le varibili
+                    risultato = double.NaN; //reimposto le varibili
+                    Session["el1"] = el1; //reimposto le varibili
+                    Session["el2"] = el2; //reimposto le varibili
+                    Session["risultato"] = risultato; //reimposto le varibili
+                    lblRisultato.Text = "ERRORE ARGOMENTO RADICE NEGATIVO"; //comunico l'errore
+                    txtEl.Text = ""; //svuoto la textbox
                 }
             }
         }
@@ -411,22 +450,31 @@ namespace Calcolatrice
                     double perc;
                     if (Session["op"].ToString() != "*" && Session["op"].ToString() != "/")
                     {
-                        perc = double.Parse(txtEl.Text);
-                        perc = ((double)Session["el1"] / 100) * perc;
-                        txtEl.Text = perc.ToString();
-                        CalcoliPulsanti(op, true);
+                        perc = double.Parse(txtEl.Text); //valore per il calcolo della percentuale
+                        perc = ((double)Session["el1"] / 100) * perc; //calcolo della percentuale
+                        txtEl.Text = perc.ToString(); //risultato nella textbox
+                        Session["el2"] = perc;
+                        switch(Session["op"].ToString())
+                        {
+                            case "+":
+                                Session["op"] = "+"; //imposto operatore
+                                break;
+                            case "-":
+                                Session["op"] = "-"; //imposto operatore
+                                break;
+                        }
                     }
                     else if (Session["op"].ToString() == "*")
                     {
-                        perc = double.Parse(txtEl.Text) / 100;
-                        txtEl.Text = perc.ToString();
+                        perc = double.Parse(txtEl.Text) / 100; //calcolo della percentuale
+                        txtEl.Text = perc.ToString(); //risultato nella textbox
                         Session["el2"] = perc;
                         Session["op"] = "*";
                     }
                     else if (Session["op"].ToString() == "/")
                     {
-                        perc = double.Parse(txtEl.Text) / 100;
-                        txtEl.Text = perc.ToString();
+                        perc = double.Parse(txtEl.Text) / 100; //calcolo della percentuale
+                        txtEl.Text = perc.ToString(); //risultato nella textbox
                         Session["el2"] = perc;
                         Session["op"] = "/";
                     }
@@ -442,7 +490,7 @@ namespace Calcolatrice
         {
             if (txtEl.Text != "")
             {
-                txtEl.Text = Math.Pow(double.Parse(txtEl.Text), 2).ToString();
+                txtEl.Text = Math.Pow(double.Parse(txtEl.Text), 2).ToString(); //potenza
             }
         }
 
@@ -458,7 +506,7 @@ namespace Calcolatrice
 
         protected void btnMostraMemoria_Click(object sender, EventArgs e)
         {
-            txtEl.Text = Session["mem"].ToString();
+            txtEl.Text = Session["mem"].ToString(); //mostro il valore nella memoria
         }
 
         protected void btnCancellaMemoria_Click(object sender, EventArgs e)
@@ -470,20 +518,30 @@ namespace Calcolatrice
 
         protected void btnAggiungiMemoria_Click(object sender, EventArgs e)
         {
-            if (Session["mem"] == null)
+            if (txtEl.Text != "")
             {
-                Session["mem"] = 0;
+                if (double.IsNaN((double)Session["mem"]))
+                {
+                    Session["mem"] = 0.0;
+                }
+                Session["mem"] = (double)Session["mem"] + double.Parse(txtEl.Text); //addizione
+                btnMostraMemoria.Enabled = true; //gestione interfaccia
+                btnCancellaMemoria.Enabled = true; //gestione interfaccia
             }
-            Session["mem"] = (double)Session["mem"] + double.Parse(txtEl.Text);
         }
 
         protected void btnSottrazioneMemoria_Click(object sender, EventArgs e)
         {
-            if (Session["mem"] == null)
+            if (txtEl.Text != "")
             {
-                Session["mem"] = 0;
+                if (double.IsNaN((double)Session["mem"]))
+                {
+                    Session["mem"] = 0.0;
+                }
+                Session["mem"] = (double)Session["mem"] - double.Parse(txtEl.Text); //sottrazione
+                btnMostraMemoria.Enabled = true; //gestione interfaccia
+                btnCancellaMemoria.Enabled = true; //gestione interfaccia
             }
-            Session["mem"] = (double)Session["mem"] - double.Parse(txtEl.Text);
         }
 
         protected void btnCancCarattere_Click(object sender, EventArgs e)
@@ -491,9 +549,9 @@ namespace Calcolatrice
             string nText = "";
             for(int i = 0; i < txtEl.Text.Length -1; i++)
             {
-                nText += txtEl.Text[i];
+                nText += txtEl.Text[i]; //memorizzo la stringa eliminando l'ultimo carattere
             }
-            txtEl.Text = nText;
+            txtEl.Text = nText; //elemento con il carattere eliminato nella textbox
         }
     }
 }

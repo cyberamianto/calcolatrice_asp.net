@@ -9,12 +9,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-        </div>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Label ID="lblRisultato" runat="server"></asp:Label>
-        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="txtEl" runat="server" ReadOnly="True" Width="229px"></asp:TextBox>
+        <asp:Label ID="lblRisultato" runat="server"></asp:Label>
         <br />
         <br />
         <asp:Button ID="btnSalvaInMemoria" runat="server" OnClick="btnSalvaInMemoria_Click" Text="MS" ToolTip="Salvataggio in memoria" Width="50px" />
