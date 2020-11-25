@@ -161,7 +161,13 @@ namespace Calcolatrice
 
         protected void btnVirgola_Click(object sender, EventArgs e)
         {
-            txtEl.Text += ','; //scrive virgola nella textbox
+            if (txtEl.Text != "")
+            {
+                if (!txtEl.Text.Contains(","))
+                    txtEl.Text += ','; //scrive virgola nella textbox
+            }
+            else
+                txtEl.Text = "0,";
         }
 
         protected void btnPiu_Click(object sender, EventArgs e)
@@ -391,30 +397,36 @@ namespace Calcolatrice
 
         protected void btnCambioSegno_Click(object sender, EventArgs e)
         {
-            string el = txtEl.Text;
-            if (!txtEl.Text.Contains("-"))
-                txtEl.Text = "-" + el; //cambio segno
-            else
-                txtEl.Text = txtEl.Text.Replace("-", "");
+            if (txtEl.Text != "")
+            {
+                string el = txtEl.Text;
+                if (!txtEl.Text.Contains("-"))
+                    txtEl.Text = "-" + el; //cambio segno
+                else
+                    txtEl.Text = txtEl.Text.Replace("-", "");
+            }
         }
 
         protected void btnFratta_Click(object sender, EventArgs e)
         {
-            if (txtEl.Text != "0")
+            if (txtEl.Text != "")
             {
-                txtEl.Text = (1 / double.Parse(txtEl.Text)).ToString(); //frazione
-                lblRisultato.Text = txtEl.Text; //risultato nella textbox
-            }
-            else
-            {
-                el1 = double.NaN; //reimposto le varibili
-                el2 = double.NaN; //reimposto le varibili
-                risultato = double.NaN; //reimposto le varibili
-                Session["el1"] = el1; //reimposto le varibili
-                Session["el2"] = el2; //reimposto le varibili
-                Session["risultato"] = risultato; //reimposto le varibili
-                lblRisultato.Text = "ERRORE DIVISIONE PER 0"; //comunico l'errore
-                txtEl.Text = ""; //svuoto la textbox
+                if (txtEl.Text != "0")
+                {
+                    txtEl.Text = (1 / double.Parse(txtEl.Text)).ToString(); //frazione
+                    lblRisultato.Text = txtEl.Text; //risultato nella textbox
+                }
+                else
+                {
+                    el1 = double.NaN; //reimposto le varibili
+                    el2 = double.NaN; //reimposto le varibili
+                    risultato = double.NaN; //reimposto le varibili
+                    Session["el1"] = el1; //reimposto le varibili
+                    Session["el2"] = el2; //reimposto le varibili
+                    Session["risultato"] = risultato; //reimposto le varibili
+                    lblRisultato.Text = "ERRORE DIVISIONE PER 0"; //comunico l'errore
+                    txtEl.Text = ""; //svuoto la textbox
+                }
             }
         }
 
@@ -482,6 +494,11 @@ namespace Calcolatrice
                     btnPer.BackColor = default; //gestione interfaccia
                     btnDiviso.BackColor = default; //gestione interfaccia
                     btnPiu.BackColor = default; //gestione interfaccia
+                }
+                else
+                {
+                    double x = double.Parse(txtEl.Text);
+                    txtEl.Text = (x / 100).ToString();
                 }
             }
         }
